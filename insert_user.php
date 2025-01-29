@@ -50,8 +50,6 @@
     else{
         echo "<script>alert('Registration Falied,please try again')</script>";
         echo "<script>window.open('signup.html','_self')</script>";
-        
     }
 }
- 
 ?>
