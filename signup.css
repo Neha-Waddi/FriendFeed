@@ -7,7 +7,7 @@ body {
     align-items: center;
     height: 125vh;
     margin: 0;
-    background-image: url('sncbg.png'); 
+    background-image: url('images/sncbg.png'); 
 }
 header h1 {
     font-size: 3rem;

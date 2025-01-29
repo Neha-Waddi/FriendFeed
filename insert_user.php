@@ -31,11 +31,11 @@
     }
     $rand=rand(1,3);
     if($rand==1)
-    $profile_pic="bfly.png";
+    $profile_pic="images/bfly.png";
     elseif($rand==2)
-    $profile_pic="puppy.png";
+    $profile_pic="images/puppy.png";
     else
-    $profile_pic="teddy.png";
+    $profile_pic="images/teddy.png";
 
     $insert="INSERT into users (f_name,l_name,user_name,describe_user,Relationship,user_pass,user_email,
     user_country,user_gender,user_birthday,user_image,user_cover,user_reg_data,status,posts,recovery_account)

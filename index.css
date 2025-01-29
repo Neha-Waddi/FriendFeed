@@ -15,7 +15,7 @@ header h1 {
 }
 
 .container {
-    background-image: url('sncbg.png');
+    background-image: url('images/sncbg.png');
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
