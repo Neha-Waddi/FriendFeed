@@ -1,0 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    height: 65vh;
+    margin: 0;
+    background-image: url('sncbg.png'); 
+}
+
+header h1 {
+    font-size: 3rem;
+    background-color: #6c63ff;
+    color: white;
+    padding: 20px;
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+    width: 230vh; 
+}
+
+.signin-container {
+    background-color: #fff;
+    padding: 40px;
+    padding-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 30%;
+}
+
+.signin-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+
+input[type="email"],
+input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    font-size: 1rem;
+    padding: 12px 30px;
+    margin: 10px 0;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 150px; 
+}
+
+.submit-btn {
+    background-color: white;
+    color: #6c63ff;
+    border: 2px solid #6c63ff;
+    display: inline-block;
+    margin: 10px auto;
+}
+
+.submit-btn:hover {
+    background-color: #6c63ff;
+    color: white;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 20px;
+}

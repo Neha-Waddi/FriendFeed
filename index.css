@@ -1,0 +1,117 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    color: #333;
+}
+
+header h1 {
+    font-size: 3rem;
+    background-color: #6c63ff;
+    color: white;
+    margin: 0;
+    padding: 20px;
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+}
+
+.container {
+    background-image: url('sncbg.png');
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: max-content;
+    padding-bottom: 70px;
+
+}
+
+.cta {
+    max-width: 500px;
+    padding: 20px;
+    margin-top: 50px;
+    background-image: linear-gradient( 358.7deg, rgb(152, 202, 235) 1.7%, rgb(122, 171, 214) 51.1%, rgba(211,232,242,1) 95.5% );
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #333; 
+    text-align: center;
+    font-size: 18px; 
+}
+
+.cta:hover {
+    transform: translateX(-5px); 
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.cta h1 {
+    font-size: 2rem;
+    color: #6c63ff;
+    margin-bottom: 30px;
+}
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+button {
+    font-size: 1rem;
+    padding: 12px 30px;
+    margin: 10px 0;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 150px; 
+}
+
+#signup {
+    background-color: white;
+    color: #6c63ff;
+    border: 2px solid #6c63ff;
+}
+
+#signup:hover {
+    background-color: #6c63ff;
+    color: white;
+}
+
+#login {
+    background-color: white;
+    color: #6c63ff;
+    border: 2px solid #6c63ff;
+}
+
+#login:hover {
+    background-color: #6c63ff;
+    color: white;
+}
+.features h3 {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 15px 0;
+    text-align: left;
+    padding-left: 15px;
+    position: relative;
+}
+
+.features h3::before {
+    color: #6c63ff;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center; 
+}
