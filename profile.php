@@ -60,7 +60,7 @@ if(!isset($_SESSION['user_email'])){
 			echo"
 			<div>
 				<div><img id='cover-img' class='img-rounded' src='cover/$user_cover' alt='cover'></div>
-				<form action='profile.php?u_id=$user_id' method='post' enctype='multipart/form-data'>
+				<form action='profile.php?u_id=<?php echo $user_id; ?>' method='post' enctype='multipart/form-data'>
 
 				<ul class='nav pull-left' style='position:absolute;top:10px;left:40px;'>
 					<li class='dropdown'>
@@ -76,11 +76,11 @@ if(!isset($_SESSION['user_email'])){
 						</div>
 					</li>
 				</ul>
-
+				
 				</form>
 			</div>
 			<div id='profile-img'>
-				<img src='users/$user_image' alt='Profile' class='img-circle' width='180px' height='185px'>
+				<img src='images/$user_image' alt='Profile' class='img-circle' width='180px' height='185px'>
 				<form action='profile.php?u_id='$user_id' method='post' enctype='multipart/form-data'>
 
 				<label id='update_profile'> Select Profile
@@ -89,6 +89,7 @@ if(!isset($_SESSION['user_email'])){
 				<button id='button_profile' name='update' class='btn btn-info'>Update Profile</button>
 				</form>
 			</div><br>
+			
 			";
 		?>
 		<?php
@@ -107,7 +108,7 @@ if(!isset($_SESSION['user_email'])){
 					move_uploaded_file($image_tmp, "cover/$u_cover.$random_number");
 					$update = "update users set user_cover='$u_cover.$random_number' where user_id='$user_id'";
 
-					$run = mysqli_query($con, $update);
+					$run = mysqli_query($connection, $update);
 
 					if($run){
 					echo "<script>alert('Your Cover Updated')</script>";
@@ -118,10 +119,7 @@ if(!isset($_SESSION['user_email'])){
 			}
 
 		?>
-	</div>
-
-
-	<?php
+		<?php
 		if(isset($_POST['update'])){
 
 				$u_image = $_FILES['u_image']['name'];
@@ -133,10 +131,10 @@ if(!isset($_SESSION['user_email'])){
 					echo "<script>window.open('profile.php?u_id=$user_id' , '_self')</script>";
 					exit();
 				}else{
-					move_uploaded_file($image_tmp, "users/$u_image.$random_number");
+					move_uploaded_file($image_tmp, "images/$u_image.$random_number");
 					$update = "update users set user_image='$u_image.$random_number' where user_id='$user_id'";
 
-					$run = mysqli_query($con, $update);
+					$run = mysqli_query($connection, $update);
 
 					if($run){
 					echo "<script>alert('Your Profile Updated')</script>";
@@ -146,25 +144,9 @@ if(!isset($_SESSION['user_email'])){
 
 			}
 	?>
-	<div class="col-sm-2">
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-2">
-	</div>
-	<div class="col-sm-2" style="background-color: #e6e6e6;text-align: center;left: 0.9%;border-radius: 5px;">
-		<?php
-		echo"
-			<center><h2><strong>About</strong></h2></center>
-			<center><h4><strong>$first_name $last_name</strong></h4></center>
-			<p><strong><i style='color:grey;'>$describe_user</i></strong></p><br>
-			<p><strong>Relationship Status: </strong> $Relationship_status</p><br>
-			<p><strong>Lives In: </strong> $user_country</p><br>
-			<p><strong>Member Since: </strong> $register_date</p><br>
-			<p><strong>Gender: </strong> $user_gender</p><br>
-			<p><strong>Date of Birth: </strong> $user_birthday</p><br>
-		";
-		?>
+	
+
+
 	</div>
 </div>
 </body>
