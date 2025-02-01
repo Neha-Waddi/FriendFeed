@@ -29,11 +29,13 @@
         echo "<script>window.open('signup.html','_self')</script>";
         exit();
     }
-    $rand=rand(1,3);
+    $rand=rand(1,4);
     if($rand==1)
     $profile_pic="bfly.png";
     elseif($rand==2)
     $profile_pic="puppy.png";
+    elseif($rand==3)
+    $profile_pic="car.png";
     else
     $profile_pic="teddy.png";
 
