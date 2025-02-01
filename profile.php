@@ -27,11 +27,11 @@ if(!isset($_SESSION['user_email'])){
 </head>
 <style>
 	#cover-img{
-		height: 400px;
+		height: 350px;
 		width: 100%;
 	}#profile-img{
 		position: absolute;
-		top: 160px;
+		top: 110px;
 		left: 40px;
 	}
 	#update_profile{
@@ -144,9 +144,25 @@ if(!isset($_SESSION['user_email'])){
 
 			}
 	?>
-	
-
-
+	<div class="col-sm-2">
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-2">
+	</div>
+	<div class="col-sm-2" style="background-color: #e6e6e6;text-align: center;right:64.5%;margin-top:24%;border-radius: 5px;">
+		<?php
+		echo"
+			<center><h2><strong>About</strong></h2></center>
+			<center><h4><strong>$first_name $last_name</strong></h4></center>
+			<p><strong><i style='color:grey;'>$describe_user</i></strong></p><br>
+			<p><strong>Relationship Status: </strong> $Relationship_status</p><br>
+			<p><strong>Lives In: </strong> $user_country</p><br>
+			<p><strong>Member Since: </strong> $register_date</p><br>
+			<p><strong>Gender: </strong> $user_gender</p><br>
+			<p><strong>Date of Birth: </strong> $user_birthday</p><br>
+		";
+		?>
 	</div>
 </div>
 </body>
