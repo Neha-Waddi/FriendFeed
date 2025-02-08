@@ -144,7 +144,9 @@ if(!isset($_SESSION['user_email'])){
             global $con;
 
             if (isset($_GET['u_id'])) {
-                $u_id = $_GET['u_id'];
+                $u_id = $_GET['u_id']; 
+            } else {
+                $u_id = $_SESSION['user_id']; 
             }
 
             $get_posts = "SELECT * FROM posts WHERE user_id='$u_id' ORDER BY post_id DESC LIMIT 5";
@@ -165,26 +167,30 @@ if(!isset($_SESSION['user_email'])){
                 $user_image = $row_user['user_image'];
 
                 echo "
-                <div class='post-container'>
-                    <div class='row'>
-                        <div class='col-sm-2'>
-                            <p><img src='images/$user_image' class='img-circle' width='100px' height='100px'></p>
-                        </div>
-                        <div class='col-sm-6'>
-                            <h3><a style='text-decoration:none; cursor:pointer; color:#3897f0;' href='user_profile.php?u_id=$user_id'>$user_name</a></h3>
-                            <h4><small style='color:black;'>Updated a post on <strong>$upload_date</strong></small></h4>
-                        </div>
-                    </div>";
+<div class='post-container'>
+    <div class='row'>
+        <div class='col-sm-2'>
+            <p><img src='images/$user_image' class='img-circle' width='100px' height='100px'></p>
+        </div>
+        <div class='col-sm-6'>
+            <h3><a style='text-decoration:none; cursor:pointer; color:#3897f0;' href='user_profile.php?u_id=$user_id'>$user_name</a></h3>
+            <h4><small style='color:black;'>Updated a post on <strong>$upload_date</strong></small></h4>
+        </div>
+        <div class='col-sm-4'>
+            <!-- Delete and Edit Buttons -->
+            <a href='delete_post.php?post_id=$post_id' class='btn btn-danger'>Delete</a>
+            <a href='edit_post.php?post_id=$post_id' class='btn btn-primary'>Edit</a>
+        </div>
+    </div>";
 
-                if ($content == "NO" && !empty($upload_image)) {
-                    echo "<img src='imagepost/$upload_image' class='img-responsive' style='width:50%;'>";
-                } else {
-                    echo "<p>$content</p>";
-                    echo "<img src='imagepost/$upload_image' class='img-responsive' style='width:50%;'>";
+if ($content == "NO" && !empty($upload_image)) {
+    echo "<img src='imagepost/$upload_image' class='img-responsive' style='width:50%;'>";
+} else {
+    echo "<p>$content</p>";
+    echo "<img src='imagepost/$upload_image' class='img-responsive' style='width:50%;'>";
+}
 
-                }
-
-                echo "</div><hr>";
+echo "</div><hr>";
             }
             ?>
         </div>
