@@ -157,7 +157,6 @@ if(!isset($_SESSION['user_email'])){
                 $upload_image = $row_posts['upload_image'];
                 $upload_date = $row_posts['pos_date'];
 
-                // Fetch user details
                 $user = "SELECT * FROM users WHERE user_id='$user_id'";
                 $run_user = mysqli_query($con, $user);
                 $row_user = mysqli_fetch_array($run_user);
@@ -177,7 +176,6 @@ if(!isset($_SESSION['user_email'])){
                         </div>
                     </div>";
 
-                // Display post content or image
                 if ($content == "NO" && !empty($upload_image)) {
                     echo "<img src='imagepost/$upload_image' class='img-responsive' style='width:50%;'>";
                 } else {
