@@ -6,6 +6,7 @@ function insertPost(){
 	if(isset($_POST['sub'])){
 		global $con;
 		global $user_id;
+		// $user_id=$_SESSION['user_id'];
 
 		$content = htmlentities($_POST['content']);
 		$upload_image = $_FILES['upload_image']['name'];
@@ -67,131 +68,93 @@ function insertPost(){
 		}
 	}
 }
-
 function get_posts(){
-	global $con;
-	$per_page = 4;
+    global $con;
+    if(isset($_GET['page'])){
+        $page = $_GET['page'];
+    }else{
+        $page=1;
+    }
 
-	if(isset($_GET['page'])){
-		$page = $_GET['page'];
-	}else{
-		$page=1;
-	}
 
-	$start_from = ($page-1) * $per_page;
+    $get_posts = "select * from posts ORDER by 1 DESC ";
+    $run_posts = mysqli_query($con, $get_posts);
 
-	$get_posts = "select * from posts ORDER by 1 DESC LIMIT $start_from, $per_page";
+    while($row_posts = mysqli_fetch_array($run_posts)){
+        $post_id = $row_posts['post_id'];
+        $user_id = $row_posts['user_id'];
+        $content = substr($row_posts['post_content'], 0,40);
+        $upload_image = $row_posts['upload_image'];
+        $post_date = $row_posts['pos_date'];
 
-	$run_posts = mysqli_query($con, $get_posts);
+        $user = "select * from users where user_id='$user_id' AND posts='yes'";
+        $run_user = mysqli_query($con,$user);
+        $row_user = mysqli_fetch_array($run_user);
 
-	while($row_posts = mysqli_fetch_array($run_posts)){
+        $user_name = $row_user['user_name'];
+        $user_image = $row_user['user_image'];
 
-		$post_id = $row_posts['post_id'];
-		$user_id = $row_posts['user_id'];
-		$content = substr($row_posts['post_content'], 0,40);
-		$upload_image = $row_posts['upload_image'];
-		$post_date = $row_posts['pos_date'];
+        // Display posts
+        echo "
+        <div class='row'>
+            <div class='col-sm-3'></div>
+            <div id='posts' class='col-sm-6'>
+                <div class='row'>
+                    <div class='col-sm-2'>
+                        <p><img src='images/$user_image' class='img-circle' width='100px' height='100px'></p>
+                    </div>
+                    <div class='col-sm-6'>
+                        <h3><a style='text-decoration:none; cursor:pointer;color #3897f0;' href='user_profile.php?u_id=$user_id'>$user_name</a></h3>
+                        <h4><small style='color:black;'>Updated a post on <strong>$post_date</strong></small></h4>
+                    </div>
+                    <div class='col-sm-4'></div>
+                </div>
+                <div class='row'>
+                    <div class='col-sm-12'>
+                        <p>$content</p>
+                        <img id='posts-img' src='imagepost/$upload_image' style='height:350px;'>
+                    </div>
+                </div><br>
+                <a href='comments.php?post_id=$post_id' style='float:right;'><button class='btn btn-info'>Comment</button></a><br>
+                
+                <!-- Comment Form -->
+                <form method='post' action='add_comment.php?post_id=$post_id'>
+                    <textarea name='comment_content' placeholder='Write a comment...' rows='2' style='width:100%;'></textarea>
+                    <button type='submit' name='submit_comment' class='btn btn-primary'>Post Comment</button>
+                </form>
+                
+                <!-- Display Comments -->
+                <div class='comments'>
+                    <h4>Comments:</h4>";
 
-		$user = "select *from users where user_id='$user_id' AND posts='yes'";
-		$run_user = mysqli_query($con,$user);
-		$row_user = mysqli_fetch_array($run_user);
+        // Fetch and display comments
+        $get_comments = "SELECT * FROM comments WHERE post_id='$post_id' ORDER BY comment_date DESC";
+        $run_comments = mysqli_query($con, $get_comments);
+        while($row_comments = mysqli_fetch_array($run_comments)){
+            $comment_user_id = $row_comments['user_id'];
+            $comment_content = $row_comments['comment_content'];
+            $comment_date = $row_comments['comment_date'];
 
-		$user_name = $row_user['user_name'];
-		$user_image = $row_user['user_image'];
+            $comment_user = "SELECT * FROM users WHERE user_id='$comment_user_id'";
+            $run_comment_user = mysqli_query($con, $comment_user);
+            $row_comment_user = mysqli_fetch_array($run_comment_user);
 
-		//now displaying posts from database
+            $comment_user_name = $row_comment_user['user_name'];
+            $comment_user_image = $row_comment_user['user_image'];
 
-		if($content=="No" && strlen($upload_image) >= 1){
-			echo"
-			<div class='row'>
-				<div class='col-sm-3'>
-				</div>
-				<div id='posts' class='col-sm-6'>
-					<div class='row'>
-						<div class='col-sm-2'>
-						<p><img src='images/$user_image' class='img-circle' width='100px' height='100px'></p>
-						</div>
-						<div class='col-sm-6'>
-							<h3><a style='text-decoration:none; cursor:pointer;color #3897f0;' href='user_profile.php?u_id=$user_id'>$user_name</a></h3>
-							<h4><small style='color:black;'>Updated a post on <strong>$post_date</strong></small></h4>
-						</div>
-						<div class='col-sm-4'>
-						</div>
-					</div>
-					<div class='row'>
-						<div class='col-sm-12'>
-							<img id='posts-img' src='imagepost/$upload_image' style='height:350px;'>
-						</div>
-					</div><br>
-					<a href='single.php?post_id=$post_id' style='float:right;'><button class='btn btn-info'>Comment</button></a><br>
-				</div>
-				<div class='col-sm-3'>
-				</div>
-			</div><br><br>
-			";
-		}
+            echo "
+            <div class='comment'>
+                <p><img src='images/$comment_user_image' class='img-circle' width='50px' height='50px'></p>
+                <p><strong>$comment_user_name</strong> - $comment_date</p>
+                <p>$comment_content</p>
+            </div><hr>";
+        }
 
-		else if(strlen($content) >= 1 && strlen($upload_image) >= 1){
-			echo"
-			<div class='row'>
-				<div class='col-sm-3'>
-				</div>
-				<div id='posts' class='col-sm-6'>
-					<div class='row'>
-						<div class='col-sm-2'>
-						<p><img src='images/$user_image' class='img-circle' width='100px' height='100px'></p>
-						</div>
-						<div class='col-sm-6'>
-							<h3><a style='text-decoration:none; cursor:pointer;color #3897f0;' href='user_profile.php?u_id=$user_id'>$user_name</a></h3>
-							<h4><small style='color:black;'>Updated a post on <strong>$post_date</strong></small></h4>
-						</div>
-						<div class='col-sm-4'>
-						</div>
-					</div>
-					<div class='row'>
-						<div class='col-sm-12'>
-							<p>$content</p>
-							<img id='posts-img' src='imagepost/$upload_image' style='height:350px;'>
-						</div>
-					</div><br>
-					<a href='single.php?post_id=$post_id' style='float:right;'><button class='btn btn-info'>Comment</button></a><br>
-				</div>
-				<div class='col-sm-3'>
-				</div>
-			</div><br><br>
-			";
-		}
-
-		else{
-			echo"
-			<div class='row'>
-				<div class='col-sm-3'>
-				</div>
-				<div id='posts' class='col-sm-6'>
-					<div class='row'>
-						<div class='col-sm-2'>
-						<p><img src='images/$user_image' class='img-circle' width='100px' height='100px'></p>
-						</div>
-						<div class='col-sm-6'>
-							<h3><a style='text-decoration:none; cursor:pointer;color #3897f0;' href='user_profile.php?u_id=$user_id'>$user_name</a></h3>
-							<h4><small style='color:black;'>Updated a post on <strong>$post_date</strong></small></h4>
-						</div>
-						<div class='col-sm-4'>
-						</div>
-					</div>
-					<div class='row'>
-						<div class='col-sm-12'>
-							<h3><p>$content</p></h3>
-						</div>
-					</div><br>
-					<a href='single.php?post_id=$post_id' style='float:right;'><button class='btn btn-info'>Comment</button></a><br>
-				</div>
-				<div class='col-sm-3'>
-				</div>
-			</div><br><br>
-			";
-		}
-	}
+        echo "
+                </div>
+            </div>
+            <div class='col-sm-3'></div>
+        </div><br><br>";
+    }
 }
-
 ?>
