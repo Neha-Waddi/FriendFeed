@@ -121,34 +121,9 @@ function get_posts(){
                 <form method='post' action='add_comment.php?post_id=$post_id'>
                     <textarea name='comment_content' placeholder='Write a comment...' rows='2' style='width:100%;'></textarea>
                     <button type='submit' name='submit_comment' class='btn btn-primary'>Post Comment</button>
-                </form>
+                </form>";
                 
-                <!-- Display Comments -->
-                <div class='comments'>
-                    <h4>Comments:</h4>";
-
-        // Fetch and display comments
-        $get_comments = "SELECT * FROM comments WHERE post_id='$post_id' ORDER BY comment_date DESC";
-        $run_comments = mysqli_query($con, $get_comments);
-        while($row_comments = mysqli_fetch_array($run_comments)){
-            $comment_user_id = $row_comments['user_id'];
-            $comment_content = $row_comments['comment_content'];
-            $comment_date = $row_comments['comment_date'];
-
-            $comment_user = "SELECT * FROM users WHERE user_id='$comment_user_id'";
-            $run_comment_user = mysqli_query($con, $comment_user);
-            $row_comment_user = mysqli_fetch_array($run_comment_user);
-
-            $comment_user_name = $row_comment_user['user_name'];
-            $comment_user_image = $row_comment_user['user_image'];
-
-            echo "
-            <div class='comment'>
-                <p><img src='images/$comment_user_image' class='img-circle' width='50px' height='50px'></p>
-                <p><strong>$comment_user_name</strong> - $comment_date</p>
-                <p>$comment_content</p>
-            </div><hr>";
-        }
+         
 
         echo "
                 </div>
