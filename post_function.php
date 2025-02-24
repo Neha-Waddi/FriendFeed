@@ -115,7 +115,7 @@ function get_posts(){
                         <img id='posts-img' src='imagepost/$upload_image' style='height:350px;'>
                     </div>
                 </div><br>
-                <a href='comments.php?post_id=$post_id' style='float:right;'><button class='btn btn-info'>Comment</button></a><br>
+                <a href='comments.php?post_id=$post_id' style='float:right;'><button class='btn btn-info'>View Comments</button></a><br>
                 
                 <!-- Comment Form -->
                 <form method='post' action='add_comment.php?post_id=$post_id'>
