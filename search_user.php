@@ -28,6 +28,8 @@ function search_user() {
                             <h4><strong>$user_name</strong></h4>
                             <p>$user_email</p>
                             <a href='user_profile.php?u_id=$user_id' class='btn btn-primary btn-sm'>View Profile</a>
+                            <a href='messages.php?u_id= $user_id'>Chat with <?php echo $user_name; ?></a>
+                           
                         </div>
                     </div>
                 </div>";
